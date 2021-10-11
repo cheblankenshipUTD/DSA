@@ -1,4 +1,4 @@
-package basics;
+package javacode.basics;
 
 public class MemoryCell{
 

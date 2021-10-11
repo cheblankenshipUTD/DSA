@@ -1,4 +1,4 @@
-package basics;
+package javacode.basics;
 
 import java.util.*;
 
