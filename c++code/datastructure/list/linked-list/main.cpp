@@ -19,7 +19,7 @@ int Count(struct Node* p)
 
     // case 1: Head is initialized but no data/ no linked list
     if (p != NULL && (p->data == INT_MIN && p->next == NULL) )
-        return 0;
+        return count;
     
     // case 2: Link list exist and hits the tail (NULL value)
     while (p != NULL)
@@ -79,6 +79,24 @@ void Create(int A[], int size, struct Node* head)
 
 }
 
+int Sum(struct Node* p)
+{
+    int sum = 0;
+
+    // 1: Head declared but linked list not created
+    if (p != NULL && (p->data == INT_MIN && p->next == NULL))
+        return 0;
+    
+
+    while (p != NULL)
+    {
+        sum = sum + p->data;
+        p = p->next;
+    }
+    
+    return sum;
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -93,6 +111,9 @@ int main(int argc, char const *argv[])
 
     // count number of nodes
     printf("\n# of nodes: %d \n", Count(head));
+
+    // sum of all node data
+    printf("\nSum of all nodes: %d \n", Sum(head));
 
     return 0;
 }
