@@ -1,4 +1,5 @@
-#include <iostream>
+#include <iostream>     // cout
+#include <algorithm>    // max()
 
 
 struct Node
@@ -98,6 +99,33 @@ int Sum(struct Node* p)
 }
 
 
+int MaxNode(struct Node* p)
+{
+    int max = INT_MIN;
+    if (Count(p) != 0)
+    {
+        while (p != NULL)
+        {
+            max = std::max(max, p->data);
+            p = p->next;
+        }
+    }
+    return max;
+}
+
+bool Search(struct Node* p, int target)
+{
+    while (p != NULL)
+    {
+        if (p->data == target)
+            return true;
+        p = p->next;
+    }
+    return false;
+}
+
+
+
 int main(int argc, char const *argv[])
 {
     int A[] = {3, 5, 4, 7, 99};
@@ -114,6 +142,11 @@ int main(int argc, char const *argv[])
 
     // sum of all node data
     printf("\nSum of all nodes: %d \n", Sum(head));
+
+    // find max node
+    printf("\nMax node: %d \n", MaxNode(head));
+
+    printf("\nDoes %d exist in the list?: %s \n", 99, Search(head, 99) ? "true" : "false");
 
     return 0;
 }
