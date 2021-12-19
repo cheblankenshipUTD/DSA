@@ -162,6 +162,39 @@ void Insert(struct Node** p, int data, int position)
     tail->next = newNode;
 }
 
+void Delete(struct Node** head, int target)
+{
+    // get the head address as a reference
+    struct Node* current = *head;
+    struct Node* tail = new Node();
+
+    // delete head node
+    if (current->data == target)
+    {
+        *head = current->next;
+        free(current);
+        return;
+    }
+    
+    // iterate up to the node we want to delete
+    while (current->next != NULL)
+    {
+        if (current->data == target)
+        {
+            tail->next = current->next;
+            free(current);
+            return;
+        }
+        // move tail ptr to current ptr node
+        tail = current;
+        // move current ptr to next ptr node
+        current = current->next;
+    }
+
+    printf("Target not found.\n");
+    
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -190,7 +223,14 @@ int main(int argc, char const *argv[])
     Insert(&head, 100, 0);
     Insert(&head, 54, 2);
     Insert(&head, 32, 1000);
+    DisplayRec(head);
 
+    Delete(&head, 100);
+    printf("\n");
+    DisplayRec(head);
+
+    Delete(&head, 4);
+    printf("\n");
     DisplayRec(head);
 
     return 0;
