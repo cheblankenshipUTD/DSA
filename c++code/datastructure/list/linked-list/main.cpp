@@ -11,6 +11,11 @@ struct Node
         data = INT_MIN;
         next = NULL;
     }
+    Node(int num, struct Node* nextNode = NULL)
+    {
+        data = num;
+        next = nextNode;
+    }
 };
 
 
@@ -125,6 +130,38 @@ bool Search(struct Node* p, int target)
 }
 
 
+// p: head pointer
+// data: new node data
+// position: insert to tail if position is not specified
+void Insert(struct Node** p, int data, int position)
+{
+    struct Node* tail = NULL;
+    struct Node* newNode = new Node(data);
+
+    // Case 1: insert in head
+    if (position == 0 || position == INT_MIN)
+    {
+        newNode->next = *p;
+        *p = newNode;
+        return;
+    }
+
+    // Case 2: insert after nth node
+    tail = *p;
+    for (int i = 1; i < position; i++)
+    {
+        if (tail->next == NULL)
+        {
+            printf("Out of range. Inserting to tail.\n");
+            tail->next = newNode;
+            return;
+        }
+        tail = tail->next;
+    }
+    newNode->next = tail->next;
+    tail->next = newNode;
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -146,7 +183,15 @@ int main(int argc, char const *argv[])
     // find max node
     printf("\nMax node: %d \n", MaxNode(head));
 
+    // search key
     printf("\nDoes %d exist in the list?: %s \n", 99, Search(head, 99) ? "true" : "false");
+
+    // insert 
+    Insert(&head, 100, 0);
+    Insert(&head, 54, 2);
+    Insert(&head, 32, 1000);
+
+    DisplayRec(head);
 
     return 0;
 }
