@@ -219,6 +219,25 @@ public:
         printf("Target not found.\n");
         
     }
+
+
+    void Reverse()
+    {
+        struct Node** hPtr = &head;
+        struct Node* p = *hPtr;
+        struct Node* q = NULL;
+        struct Node* r = NULL;
+
+        while (p != NULL)
+        {
+            q = p;
+            p = p->next;
+            q->next = r;
+            r = q;
+        }
+        *hPtr = q;
+    }
+
 };
 
 // LinkedList::LinkedList(/* args */)
@@ -270,6 +289,10 @@ int main(int argc, char const *argv[])
     ll->DisplayRec(ll->getHead());
 
     ll->Delete(4);
+    printf("\n");
+    ll->DisplayRec(ll->getHead());
+
+    ll->Reverse();
     printf("\n");
     ll->DisplayRec(ll->getHead());
 
