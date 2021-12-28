@@ -6,6 +6,8 @@
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
 
+#include "tree_node.h"
+
 
 class CircularQueue
 {
@@ -13,13 +15,13 @@ private:
     int front;
     int rear;
     int size;
-    int* Q;
+    TreeNode** Q;
 public:
     CircularQueue();
     CircularQueue(int size);
     ~CircularQueue();
-    void enqueue(int newData);
-    int dequeue();
+    void enqueue(TreeNode** newData);
+    TreeNode* dequeue();
     int circularIndex(int rawIndex);
     bool isEmpty();
     bool isFull();

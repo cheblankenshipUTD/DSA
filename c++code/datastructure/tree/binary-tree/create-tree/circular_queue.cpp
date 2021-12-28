@@ -2,6 +2,7 @@
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
 
+#include "tree_node.h"
 #include "circular_queue.h"
 
 
@@ -16,7 +17,7 @@ CircularQueue::CircularQueue(int size)
     this->front = 0;
     this->rear = 0;
     this->size = size;
-    this->Q = (int*)malloc(size * sizeof(int));
+    this->Q = (TreeNode**)malloc(size * sizeof(TreeNode));
 }
 
 CircularQueue::~CircularQueue()
@@ -24,23 +25,23 @@ CircularQueue::~CircularQueue()
     free(this->Q);
 }
 
-void CircularQueue::enqueue(int newData)
+void CircularQueue::enqueue(TreeNode** newData)
 {   
-    printf("Enqueue ");
+    // printf("Enqueue ");
     if (isFull())
     {
         printf("Queue is full.\n");
         return;
     }
     this->rear = (this->rear + 1) % this->size;
-    this->Q[this->rear] = newData;
+    this->Q[this->rear] = *newData;
     display();
 }
 
-int CircularQueue::dequeue()
+TreeNode* CircularQueue::dequeue()
 {
-    printf("Dequeue ");
-    int x = INT_MIN;
+    // printf("Dequeue ");
+    TreeNode* x = NULL;
     if (isEmpty())
     {
         printf("Queue is empty.\n");
@@ -49,8 +50,7 @@ int CircularQueue::dequeue()
     else
     {
         this->front = circularIndex(this->front);
-        x = this->Q[this->front];
-        display();
+        x = &(*this->Q[this->front]);
     }
     return x;
 }
@@ -80,14 +80,14 @@ bool CircularQueue::isFull()
 
 void CircularQueue::display()
 {
+    printf("\nDisplay Queue: ");
     if (isEmpty())
         return;
     
-    // 
     int index = (this->front + 1) % this->size;
     do
     {
-        printf("%d ", this->Q[index]);
+        printf("%p ", (void*)&this->Q[index]);
         index = (index + 1) % this->size;
     } while (index != (this->rear + 1) % this->size);
     printf("\n");
