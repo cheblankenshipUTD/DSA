@@ -17,8 +17,17 @@ int main(int argc, char const *argv[])
 
     bt->createTree();
 
-    printf("Display in-order\n");
+    printf("Display in-order: ");
     bt->Inorder(bt->getRoot());
+    printf("\n");
+
+    printf("Display pre-order: ");
+    bt->Preorder(bt->getRoot());
+    printf("\n");
+
+    printf("Display post-order: ");
+    bt->Postorder(bt->getRoot());
+    printf("\n");
 
     return 0;
 }

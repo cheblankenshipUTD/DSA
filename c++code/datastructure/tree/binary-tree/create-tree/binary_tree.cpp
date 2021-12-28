@@ -96,3 +96,24 @@ void BinaryTree::Inorder(TreeNode* p)
     }
 };
 
+void BinaryTree::Preorder(TreeNode* p)
+{
+    if (p != NULL)
+    {
+        if (p->data != INT_MIN) printf("%d ", p->data);
+        Preorder(p->left);
+        Preorder(p->right);
+    }
+}
+
+void BinaryTree::Postorder(TreeNode* p)
+{
+    if (p != NULL)
+    {
+        Preorder(p->left);
+        Preorder(p->right);
+        if (p->data != INT_MIN) printf("%d ", p->data);
+    }
+}
+
+

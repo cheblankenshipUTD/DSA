@@ -19,6 +19,8 @@ public:
     void createTree();
     TreeNode* getRoot();
     void Inorder(TreeNode* p);
+    void Preorder(TreeNode* p);
+    void Postorder(TreeNode* p);
 };
 
 #endif
