@@ -107,7 +107,7 @@ void BinaryTree::Postorder(TreeNode* p)
 
 void BinaryTree::PreorderItr()
 {
-    printf("Preorder: ");
+    printf("Preorder (iterative): ");
     TreeNode* ptr = this->root;
     std::stack<TreeNode*> stk;
     stk.push(ptr);
@@ -129,3 +129,28 @@ void BinaryTree::PreorderItr()
     printf("\n");
 }
 
+
+void BinaryTree::InorderItr()
+{
+    printf("Inorder (iterative): ");
+    TreeNode* ptr = this->root;
+    std::stack<TreeNode*> stk;
+    // stk.push(ptr);
+
+    while ( !(stk.empty()) or ptr != NULL )
+    {
+        if (ptr == NULL)
+        {
+            ptr = stk.top();
+            stk.pop();
+            printf(" %d", ptr->data);
+            ptr = ptr->right;
+        }
+        else {
+            stk.push(ptr);
+            ptr = ptr->left;
+        }
+    }
+
+    printf("\n");
+}

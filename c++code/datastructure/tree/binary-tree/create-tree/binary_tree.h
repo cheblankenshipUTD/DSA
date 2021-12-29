@@ -23,6 +23,7 @@ public:
     void Preorder(TreeNode* p);
     void Postorder(TreeNode* p);
     void PreorderItr();
+    void InorderItr();
 };
 
 #endif

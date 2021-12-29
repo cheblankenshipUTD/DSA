@@ -29,8 +29,9 @@ int main(int argc, char const *argv[])
     bt->Postorder(bt->getRoot());
     printf("\n");
 
-    printf("Iterative approach ");
     bt->PreorderItr();
+
+    bt->InorderItr();
 
     return 0;
 }
