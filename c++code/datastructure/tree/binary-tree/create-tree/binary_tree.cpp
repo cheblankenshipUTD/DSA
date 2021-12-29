@@ -1,6 +1,7 @@
 #include <limits.h> // INT_MIN
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
+#include <stack>    // stack stl
 
 #include "tree_node.h"
 #include "circular_queue.h"
@@ -49,13 +50,7 @@ void BinaryTree::createTree()
             // left
             printf("Enter left child value for %d: ", p->data);
             scanf("%d", &x); // store input into temp x
-            if (x == -1)
-            {
-                t = new TreeNode();
-                p->left = t;
-                q->enqueue(&t);
-            }
-            else
+            if (x != -1)
             {
                 t = new TreeNode(x);
                 p->left = t;
@@ -64,13 +59,7 @@ void BinaryTree::createTree()
             // right
             printf("Enter right child value for %d: ", p->data);
             scanf("%d", &x); // store input into temp x
-            if (x == -1)
-            {
-                t = new TreeNode();
-                p->right = t;
-                q->enqueue(&t);
-            }
-            else
+            if (x != -1)
             {
                 t = new TreeNode(x);
                 p->right = t;
@@ -116,4 +105,27 @@ void BinaryTree::Postorder(TreeNode* p)
     }
 }
 
+void BinaryTree::PreorderItr()
+{
+    printf("Preorder: ");
+    TreeNode* ptr = this->root;
+    std::stack<TreeNode*> stk;
+    stk.push(ptr);
+
+    while (!stk.empty())
+    {
+        ptr = stk.top();
+        stk.pop();
+        printf("%d ", ptr->data);
+        if (ptr->right != NULL)
+        {
+            stk.push(ptr->right);   
+        }
+        if (ptr->left != NULL)
+        {
+            stk.push(ptr->left);   
+        }
+    }
+    printf("\n");
+}
 

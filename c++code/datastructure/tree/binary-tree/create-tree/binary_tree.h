@@ -5,6 +5,7 @@
 #include <limits.h> // INT_MIN
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
+#include <stack>    // stack library  
 
 #include "tree_node.h"
 
@@ -21,6 +22,7 @@ public:
     void Inorder(TreeNode* p);
     void Preorder(TreeNode* p);
     void Postorder(TreeNode* p);
+    void PreorderItr();
 };
 
 #endif
