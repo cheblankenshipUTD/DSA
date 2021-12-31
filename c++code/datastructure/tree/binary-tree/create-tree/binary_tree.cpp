@@ -2,6 +2,7 @@
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
 #include <stack>    // stack stl
+#include <queue>    // Q used for level order traversal
 
 #include "tree_node.h"
 #include "circular_queue.h"
@@ -152,5 +153,27 @@ void BinaryTree::InorderItr()
         }
     }
 
+    printf("\n");
+}
+
+
+void BinaryTree::LevelOrderTraveral()
+{
+    printf("Level order: ");
+    TreeNode* ptr = NULL;
+    std::queue<TreeNode*> q;
+    q.push(this->root);
+
+    while (ptr != NULL || !(q.empty()))
+    {
+        ptr = q.front();
+        q.pop();
+        if (ptr != NULL)
+        {
+            printf("%d ", ptr->data);
+            q.push(ptr->left);
+            q.push(ptr->right);
+        }
+    }
     printf("\n");
 }

@@ -33,5 +33,7 @@ int main(int argc, char const *argv[])
 
     bt->InorderItr();
 
+    bt->LevelOrderTraveral();
+
     return 0;
 }

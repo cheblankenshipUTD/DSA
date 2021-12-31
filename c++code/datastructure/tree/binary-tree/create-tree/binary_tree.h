@@ -24,6 +24,7 @@ public:
     void Postorder(TreeNode* p);
     void PreorderItr();
     void InorderItr();
+    void LevelOrderTraveral();
 };
 
 #endif
