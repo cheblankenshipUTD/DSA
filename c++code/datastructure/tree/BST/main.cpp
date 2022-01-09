@@ -31,6 +31,7 @@ public:
     void InsertItr(int key);
     Node* InsertR(Node* ptr, int key);
     void InOrderR(Node* ptr);
+    Node* Search(int key);
 };
 
 BST::BST()
@@ -135,6 +136,32 @@ void BST::InOrderR(Node* ptr)
     }
 }
 
+Node* BST::Search(int key)
+{
+    Node* ptr = this->root;
+
+    while (ptr != NULL)
+    {
+        // Check if key data exist in the tree
+        if (ptr->data == key)
+        {
+            return ptr;
+        }
+
+        // Checkif key is smaller or larger
+        if (ptr->data > key)
+        {
+            ptr = ptr->left;
+        }
+        else
+        {
+            ptr = ptr->right;
+        }
+    }
+    
+    return NULL;
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -151,6 +178,17 @@ int main(int argc, char const *argv[])
 
     // display nodes in-order
     bst->InOrderR(bst->getRoot());
+
+    // search 
+    if (bst->Search(11) != NULL)
+    {
+        printf("\nKey 11 exists in tree\n");
+    }
+    else
+    {
+        printf("\nKey 11 does not exists in tree\n");
+    }
+    
 
     return 0;
 }
