@@ -35,5 +35,9 @@ int main(int argc, char const *argv[])
 
     bt->LevelOrderTraveral();
 
+    printf("Count Nodes: %d\n", bt->CountNode(bt->getRoot()));
+
+    printf("Tree height: %d\n", bt->Height(bt->getRoot()));
+
     return 0;
 }

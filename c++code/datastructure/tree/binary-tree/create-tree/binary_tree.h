@@ -25,6 +25,9 @@ public:
     void PreorderItr();
     void InorderItr();
     void LevelOrderTraveral();
+    int CountNode(TreeNode* p);
+    int Height(TreeNode* p);
+
 };
 
 #endif

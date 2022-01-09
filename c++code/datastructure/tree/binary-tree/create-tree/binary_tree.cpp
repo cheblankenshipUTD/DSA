@@ -3,6 +3,7 @@
 #include <stdio.h>  // printf()
 #include <stack>    // stack stl
 #include <queue>    // Q used for level order traversal
+#include <algorithm>// max()
 
 #include "tree_node.h"
 #include "circular_queue.h"
@@ -176,4 +177,33 @@ void BinaryTree::LevelOrderTraveral()
         }
     }
     printf("\n");
+}
+
+
+int BinaryTree::CountNode(TreeNode* p = NULL)
+{
+    if (p != NULL)
+    {
+        // 1. Count the number of nodes in left child
+        int l = CountNode(p->left);
+        // 2. Count the number of nodes in right child
+        int r = CountNode(p->right);
+        // 3. return the total number of nodes
+        return 1 + l + r;
+    }
+    return 0;
+}
+
+
+int BinaryTree::Height(TreeNode* p = NULL)
+{
+    int l = 0;
+    int r = 0;
+    if (p != NULL)
+    {
+        l = Height(p->left);
+        r = Height(p->right);
+        return 1 + std::max(l, r);
+    }
+    return 0;
 }
