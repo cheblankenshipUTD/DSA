@@ -25,11 +25,12 @@ class BST
 private:
     Node* root;
 public:
-    BST(/* args */);
+    BST();
     ~BST();
     Node* getRoot();
     void InsertItr(int key);
     Node* InsertR(Node* ptr, int key);
+    void InOrderR(Node* ptr);
 };
 
 BST::BST()
@@ -49,6 +50,14 @@ Node* BST::getRoot()
 // Insert key iterative approach
 void BST::InsertItr(int key)
 {
+
+    // Check if root is null
+    if (this->root == NULL)
+    {
+        this->root = new Node(key);
+        return;
+    }
+
     Node* t = NULL;
     Node* ptr = this->root;
 
@@ -89,13 +98,59 @@ void BST::InsertItr(int key)
 // Insert new data recursive
 Node* BST::InsertR(Node* ptr, int key)
 {
+    // If root is emoty or hits leaf node
+    if (ptr == NULL)
+    {
+        return new Node(key);
+    }
 
+    // Call insert recursivly left or right
+    if (ptr->data > key)
+    {
+        ptr->left = InsertR(ptr->left, key);
+    }
+    else if(ptr->data < key)
+    {
+        ptr->right = InsertR(ptr->right, key);
+    }
+    else
+    {
+        return ptr;
+    }
+    
+    return NULL;
 }
 
+
+void BST::InOrderR(Node* ptr)
+{
+    if (ptr != NULL)
+    {
+        // Call left
+        InOrderR(ptr->left);
+        // display node data
+        printf("%d ", ptr->data);
+        // Call right
+        InOrderR(ptr->right);
+    }
+}
 
 
 int main(int argc, char const *argv[])
 {
+
+    // Declare BST object
+    BST* bst;
+    bst = new BST();
+
+    // Insert first node into bst
+    bst->InsertItr(10);
+    bst->InsertItr(5);
+    bst->InsertItr(15);
+    bst->InsertItr(13);
+
+    // display nodes in-order
+    bst->InOrderR(bst->getRoot());
 
     return 0;
 }
