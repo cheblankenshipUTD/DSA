@@ -1,6 +1,7 @@
 #include <limits.h> // INT_MIN
 #include <stdlib.h> // malloc()
 #include <stdio.h>  // printf()
+#include <algorithm> // std::max()
 
 struct Node
 {
@@ -32,6 +33,10 @@ public:
     Node* InsertR(Node* ptr, int key);
     void InOrderR(Node* ptr);
     Node* Search(int key);
+    Node* Delete(Node* ptr, int key);
+    int Height(Node* ptr);
+    Node* InOrderPred(Node* ptr);
+    Node* InOrderSucc(Node* ptr);
 };
 
 BST::BST()
@@ -145,6 +150,7 @@ Node* BST::Search(int key)
         // Check if key data exist in the tree
         if (ptr->data == key)
         {
+            printf("\nKey %d found.\n", key);
             return ptr;
         }
 
@@ -159,7 +165,109 @@ Node* BST::Search(int key)
         }
     }
     
+    printf("\nKey %d diesn't exist in BST\n", key);
     return NULL;
+}
+
+
+Node* BST::Delete(Node* ptr, int key)
+{
+    if (ptr == NULL)
+    {
+        return NULL;
+    }
+    if (ptr->left == NULL and ptr->right == NULL)
+    {
+        return NULL;
+    }
+    
+    
+    if (ptr->data > key)
+    {
+        ptr->left = Delete(ptr->left, key);
+    }
+    else if (ptr->data < key)
+    {
+        ptr->right = Delete(ptr->right, key);
+    }
+    else
+    {
+        // check which sub tree has a larger height
+        if (Height(ptr->left) > Height(ptr->right))
+        {
+            printf("checkkkk");
+            // get the in-order predeccesor
+            Node* pred = InOrderPred(ptr);
+            // update the deleting node data attribute
+            ptr->data = pred->data;
+            printf("Check: %d", pred->data);
+            // recursively call Delete() to remove the duplication
+            ptr->left = Delete(ptr->left, pred->data);
+        }
+        else
+        {
+            printf("checkkkk2");
+            // get the in-order successor
+            Node* succ = InOrderSucc(ptr);
+            // update the deleting node data attribute
+            ptr->data = succ->data;
+            printf("Check: %d", succ->data);
+            // recursively call Delete() to remove the duplication
+            ptr->right = Delete(ptr->right, succ->data);
+        }
+    }
+    return ptr;
+    
+}
+
+
+int BST::Height(Node* ptr)
+{
+    int l = 0;
+    int r = 0;
+    if (ptr != NULL)
+    {
+        l = Height(ptr->left);
+        r = Height(ptr->right);
+        return 1 + std::max(l, r);
+    }
+    return 0;
+}
+
+Node* BST::InOrderPred(Node* ptr)
+{
+    Node* temp = NULL;
+    if (ptr != NULL)
+    {
+        temp = ptr;
+        if (temp->left != NULL)
+        {
+            temp = temp->left;   
+            while (temp != NULL and temp->right != NULL)
+            {
+                temp = temp->right;
+            }
+        }
+    }
+    return temp;
+}
+
+Node* BST::InOrderSucc(Node* ptr)
+{
+    Node* temp = NULL;
+    if (ptr != NULL)
+    {
+        temp = ptr;
+        if (temp->right != NULL)
+        {
+            temp = temp->right;
+            while (temp->left != NULL)
+            {
+                temp = temp->left;
+            }
+        }
+    }
+    return temp;
 }
 
 
@@ -175,19 +283,21 @@ int main(int argc, char const *argv[])
     bst->InsertItr(5);
     bst->InsertItr(15);
     bst->InsertItr(13);
+    bst->InsertItr(17);
 
     // display nodes in-order
     bst->InOrderR(bst->getRoot());
 
     // search 
-    if (bst->Search(11) != NULL)
-    {
-        printf("\nKey 11 exists in tree\n");
-    }
-    else
-    {
-        printf("\nKey 11 does not exists in tree\n");
-    }
+    bst->Search(13);
+
+    // Delete node
+    bst->Delete(bst->getRoot(), 13);
+
+
+    bst->InOrderR(bst->getRoot());
+
+
     
 
     return 0;
